@@ -1,0 +1,569 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>DashBoard Indicadores</title>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            font-family: Arial, sans-serif;
+            background-color: rgb(255, 255, 255);
+        }
+
+        .imagem_supervisor {
+            width: 80px;
+            height: 80px;
+            left: 50px;
+            top: 15px;
+            position: absolute;
+            border-radius: 5px;
+        }
+
+        .nome_supervisor{
+            width: 250px;
+            height: 80px;
+            left: 145px;
+            top: 20px;
+            position: absolute;
+            font-weight: bold;
+            color: rgba(0, 32, 96, 1);
+            font-family: Arial, sans-serif; 
+            font-size: 30px; 
+        }
+
+        .organizacao{
+            width: 250px;
+            height: 80px;
+            left: 145px;
+            top: 55px;
+            position: absolute;
+            font-weight: bold;
+            color: rgba(0, 32, 96, 1);
+            font-family: Arial, sans-serif; 
+            font-size: 16px; 
+        }
+
+        .titulo {
+            width: 1500px;
+            height: 600px;
+            left: 180px;
+            top: 10px;
+            font-size: 70px;
+            font-weight: bold;
+            color: rgba(0, 32, 96);
+            text-shadow: 2px 2px 3px rgba(0, 32, 96, 0.5);
+            text-align: center;
+            position: absolute
+        }
+
+        .logo_get {
+            width: 40px;
+            height: 40px;
+            left: 1480px;
+            top: 40px;
+            position: absolute;
+        }
+
+        .score {
+            width: 200px;
+            height: 300px;
+            left: 100px;
+            top: 150px;
+            position: absolute;
+            background-color: rgba(0, 32, 96, 1);
+            border-top-left-radius: 10px;
+            border-bottom-left-radius: 10px;
+        }
+
+        .abs {
+            width: 290px;
+            height: 140px;
+            left: 329px;
+            top: 150px;
+            position: absolute;
+            background-color: rgba(0, 32, 96, 1);
+        }
+
+        .aderencia {
+            width: 290px;
+            height: 140px;
+            left: 640px;
+            top: 150px;
+            position: absolute;
+            background-color: rgba(0, 32, 96, 1);
+            border-top-right-radius: 10px;
+        }
+
+        .feedback {
+            width: 290px;
+            height: 140px;
+            left: 329px;
+            top: 310px;
+            position: absolute;
+            background-color: rgba(0, 32, 96, 1);
+            border-top-left-radius: 0;
+        }
+
+        .pausas {
+            width: 290px;
+            height: 140px;
+            left: 640px;
+            top: 310px;
+            position: absolute;
+            background-color: rgba(0, 32, 96, 1);
+            border-bottom-right-radius: 10px;
+        }
+
+        .nome_indicadores{
+            left: 10px;
+            top: 10px;
+            font-size: 20px;
+            font-weight: bold;
+            position: absolute;
+            color: rgba(255, 255, 255, 1);
+        }
+
+        .indicadores_score {
+            left: 35px;
+            top: 110px;
+            font-size: 70px;
+            font-weight: bold;
+            position: absolute;
+            color: rgba(255, 255, 255, 1);
+
+        }
+
+        .indicadores_numeros{
+            left: 50px;
+    top: 37px;
+    font-size: 80px;
+    font-weight: bold;
+    position: absolute;
+    color: rgba(255, 255, 255, 1);
+        }
+
+        .grafico {
+            width: 900px;
+            height: 300px;
+            background-color: rgb(255, 255, 255);
+            position: absolute;
+            left: 940px;
+            top: 150px;
+        }
+
+        .tabela {
+            background-color: rgba(255, 255, 255, 1);
+            position: absolute;
+            left: 100px;
+            top: 500px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            color: black;
+            font-size: 24px;
+            border-radius: 10px;
+            font-family: sans-serif;
+            font-weight: bold;
+        }
+
+        table {
+            border-collapse: collapse;
+            width: auto;
+            font-family: sans-serif;
+            font-weight: bold;
+        }
+
+        tr {
+            color: white;
+            border-bottom: 1px solid #ddd;
+            font-family: Arial, Helvetica, sans-serif;
+            font-size: 16px;
+        }
+
+        th {
+            width: 40px;
+            height: 30px;
+            color: white;
+            background-color: rgba(0, 32, 96, 1);
+            border-bottom: 1px solid #ddd;
+        }
+
+        td {
+            color: black;
+            border-bottom: 1px solid #ddd;
+            width: 300px;
+        }
+
+        .imagem_colaborador {
+            width: 40px;
+            height: 40px;
+            text-align: left;
+            border-radius: 5px;
+        }
+
+        .colunaColaborador {
+            width: 20px;
+            font-family: Arial, Helvetica, sans-serif;
+            border-radius: 0;
+            height: 40px;
+        }
+
+        .linhasColaborador {
+            height: 50px;
+            text-align: center;
+            font-family: Arial, Helvetica, sans-serif;
+        }
+
+        .linhasfoto {
+            text-align: center;
+        }
+
+        .ColaboradorBorda {
+            width: 50px;
+            height: 30px;
+            color: white;
+            border-top-left-radius: 10px;
+            background-color: rgba(0, 32, 96);
+        }
+
+        .ColaboradorAproveitamento {
+            width: 60px;
+            height: 30px;
+            color: white;
+            border-top-right-radius: 10px;
+            background-color: rgba(0, 32, 96);
+        }
+
+        .porcentagem{
+            font-size: 50px;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="logo_get">
+        <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAASwAAACoCAMAAABt9SM9AAABuVBMVEXk6+Ti7OTl6uTj7OLj6+fn6eTk6+Lg7eXm6enj6+UAADzl6uji6+cAAD7l6ubo6OoAHU3LPHQAZ//o8evh7eAAAEIAH1Ps6+Pt5uTt5+AAFE8AAEoAGUkBxNLDPn3AztQAn+IAydCgR5qYSaMBqeMBrd1jVs4AcP8Ah/MAav/i7PD7nKHpdnb1mpDv49iYprF0gpJ4jJnwamT8Cgj/GRnsUU4AGT3wzMv5JiT/IC/ytrOTobMAJE/K2+D8KSL5qKsxTGwADlCiuMT3My303NUAGE/v1L/zXF75UFHxx70YN1b1/vsgPWVRY4Ctvc9hdIwwSGOcsbXVZHjTQW303eSU4OO76uzkSWzcLFfXLmTCUHsAG1SR1uINy8bmOlLu3OkAu9T5JjrwL02wQYJlwNoA1r2y6uLrMz+aPYTSrtEAz8TcOVGuQZeufa2LyeoAtNfpZ3WDUKW02ezYdomNR7d+ZbXEvOlPpOwAj+V3UsEzQ6IALm4AWJzjrLtaW99uhduNpuycuu5hl+0afe7UiLUChPejaaUBe/wAkPLOxNejnsZcTtNAW+uSkNNcZdEAWvwJasK8z+0AACgoOfZoAAAFYklEQVR4nO3a61cTRxgG8N2dzOxudrMbmclOCGBCC1621oRCLTVJC2ljWzWA1VI0KOCtalsveANrrdZSaKW1+hd3E8ETEvjWQ9Kzz+9j9suc5zwzeXcSRQEAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAACA/xqNmFq71/C/IUyT7fTMCOzmWjqeVBxrp2c0sJtr6Xg+lcTc4ZnJOd/VxXQyVaUk+d6h9w/ryZZzi6lMS2dzQ5xGSDvW1nEoMeQHwyPDH1JXbX5GdOYeOZLq5dIS7Vhbx6GK/dHw6OjHw0dVp/mZZlv5VMFLFDUbzapRWS2sT0aHP9Vb2mNYfsEbK4yXuN6OpXUeymz52cjIyOjnrWFZVjYVS/eW86S1dWGlHvti4cuvdKNl1lL5cW/sxMlChWg7jhah48rDwlb1lr3GSuXoBJ+MFzhDWJssV08mTSWpNH0f8ilvypfZatQXmOI3dWuaEFQRMmlqRNPqkVE1wkvR1ClKSqlYidXPLJMR4pCIr+h6uKd629aTX58+Y8qNtxtX1/iYV+CGKEbHs7I+OhBGqRDf9E+7zG7rYtvN5Ge+nTl7bi4oTT0YW5fpnlTesQiPVyd5vW2WrQt3tq/v/PSOb0fhoB+7cHHm7J5zczZ9M0JEeKXaa6uOxivecV4Px+9OurPzff3956dDvQ3VowsLF2dO79l7ac4KjibV1NxiT3yI2BFHDpVjfnBaUUdI/fJ8PawrV4PRP7R3YPqhke8uBM3ae+naddfydaEZk+WobxmKQ0vl2ITQFdUX04MDt4Kwbty4coWEOCyV3l74vh7WD+/86CrE7S4m4jnuakpEpmPlLLE1Jm5mBm/VwjofNEvXQrwTfev2wkZY79657mpGLh4tSkdjNjWi1Ry35eJAZmCgHlb/jatCV5MttxShIS15dzOse/fuP3BfFyYlFcF7NuUnq1MnFh8uPcwMDA7Wt+E0NVU1xM1SqU7vzgRhXQqatby8vO/ReJFIKbsl45M/PV46sLaUqYU13zff77t4sRbJnzfCurO8b9+TJ09+efos8PTX56srK2tL9WYF2/CyLXQj3PdbwVdbUpdnztXCurdcD2t9fb2r62XXwf2rKweCYm00a9YVxHXDHZZKa7fxqvHbtSCsWrOCuNYPdgWCsN40K5PJDF72hbQilh7uCX4Tmft9S7NqYdWqVQ9rcJGHdrjajoi4f9y/s5HW22atrqytLQ3MuiTcL9DNdCbFiT8fLb94sf62Wau1Qytz0xBEhne22g4Vtsan4oUHf/395GVd1/79z/95PMGZ0GjI77GaGcSQpVhvXkhuv3r17GkwPSz66de9QzLk48J2LEL4WLVXJ4wmI1RKxih1/Wi1wiM7/nkktCyqphNBj1zLcoOBQjeCtEhtX3ITW7CZRf2KF/OlRgTRNE0xCYkQPhlP2BS/8DRTSTrqTfItIwKR+d5UCWG1ELziJYrMbTygTFYqp7KYR1vQYsKrcOo2fmarxVrbcMA3EswxeM5LpJmzpUWW4AXvOMLagimOVYwFxWr63BF6xYv6CKuR5TCeq/ZMNH9uEj5UjqYRViPCHKvsjbX8h1RV5KlUOYuwGjGL58vjpZbXGqJo6R4vhz/iNmKOHy+c9Fsu9oLG8XFvCnNWI5Xnx8tZa9uwxoITvh1r6lhuMCEUHLptWLlqIt2ONXUsno315i2t5cxiismz5XIWh1YDUkynXaM1rBo3eLTb6+lowrRYRGPbjggaEbiiaRQxIxbZPqtgKyqYsxpZQat2yEphmoawAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAKBj/Av6L8+Oyi8UjwAAAABJRU5ErkJggg==" alt="Logo da Empresa">
+    </div>
+    
+    <div>
+        <img class="imagem_supervisor" src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcR2TlMbyPU1BS4_37lrl9gPOvR8OCh_C32BfdOjmFOvIK8fLEh0SE5pfDpzr2cZZPvWGk8&usqp=CAU" alt="SUPERVISOR">
+        <div class="nome_supervisor">Erculano</div>
+        <div class="organizacao">Canal Remoto</div>
+    </div>
+
+    <div class="titulo">REPORTS OPERAÇÕES</div>
+
+    <div class="score">
+        <div class="nome_indicadores">Score</div>
+        <div class="indicadores_score"> 100</div>
+    </div>
+
+    <div class="abs">
+        <div class="nome_indicadores">Absenteísmo</div>
+        <div class="indicadores_numeros"> 50
+        <span class="porcentagem">%</span>
+        </div>
+    </div>
+
+    <div class="aderencia">
+        <div class="nome_indicadores">Aderência</div>
+        <div class="indicadores_numeros"> 100
+         <span class="porcentagem">%</span>
+        </div>
+    </div>
+
+    <div class="feedback">
+        <div class="nome_indicadores">Feedback</div>
+        <div class="indicadores_numeros"> 100
+        <span class="porcentagem">%</span>
+        </div>
+    </div>
+
+    <div class="pausas">
+        <div class="nome_indicadores">Pausas</div>
+        <div class="indicadores_numeros"> 100
+        <span class="porcentagem">%</span>
+        </div>
+    </div>
+
+    <div class="grafico">
+        <canvas id="graficoLinhas" width="1200" height="400"></canvas>
+    </div>
+
+    <div class="tabela">
+        <table>
+            <tr>
+                <th class="ColaboradorBorda" colspan="1">Colaborador</th>
+                <th class="colunaColaborador">ABS</th>
+                <th class="colunaColaborador">Aderência</th>
+                <th class="colunaColaborador">Pausas</th>
+                <th class="colunaColaborador">Feedback</th>
+                <th class="ColaboradorAproveitamento">Aproveitamento</th>
+            </tr>
+            <tr>
+                <td class="linhasfoto"><img class="imagem_colaborador" src="data:image/jpeg;base64,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" alt="Colaborador"></td>
+                <td class="linhasColaborador">Andreyssi Macalli</td>
+                <td class="Aderencia">Tests</td>
+                <td class="linhasfoto">Tests0</td>
+                <td class="linhasfoto">Tests</td>
+                <td class="linhasfoto">Tests</td>
+            </tr>
+            <tr>
+                <td class="linhasfoto"><img class="imagem_colaborador" src="data:image/jpeg;base64,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" alt="Colaborador"></td>
+                <td class="linhasColaborador">Andreyssi Macalli</td>
+                <td class="Aderencia">Tests</td>
+                <td class="linhasfoto">Tests0</td>
+                <td class="linhasfoto">Tests</td>
+                <td class="linhasfoto">Tests</td>
+            </tr>
+          
+
+        </table>
+    </div>
+
+    <script>
+        // Grafico na div 5
+        var canvas = document.getElementById('graficoLinhas');
+        var ctx = canvas.getContext('2d');
+        var gradient1 = ctx.createLinearGradient(0, 0, 0, 400);
+        gradient1.addColorStop(0, 'rgba(0, 32, 96, 0.8)');
+        gradient1.addColorStop(1, 'rgba(182, 239, 222, 0.1)');
+        var gradient2 = ctx.createLinearGradient(0, 0, 0, 400);
+        gradient2.addColorStop(0, 'rgba(44, 129, 112, 0.8)');
+        gradient2.addColorStop(1, 'rgba(182, 239, 222, 0.1)');
+
+        const data = {
+            labels: ["1/jan", "2/jan", "3/jan", "4/jan", "5/jan", "6/jan"],
+            datasets: [{
+                    label: 'Aderência',
+                    data: [88, 100, 88, 85, 92, 100, 94, 99, 85, 85, 86, 96, 95, 100, 93, 89, 91, 94, 88, 93, 91, 97, 87, 86, 97, 95, 89, 97, 94],
+                    backgroundColor: gradient1,
+                    borderColor: 'rgba(0, 32, 96))',
+                    borderWidth: 1.5,
+                    fill: true,
+                    tension: 0.5,
+                    pointBorderColor: 'rgba(0, 32, 96, 0.6)',
+                    pointBackgroundColor: 'rgba(7, 7, 243))',
+                    pointRadius: 1,
+                },
+                {
+                    label: 'ABS',
+                    data: [80, 28, 35, 91, 2, 3, 1, 1, 1, 4, 0, 1, 97, 1, 3, 11, 3, 45, 1, 1, 0, 1, 1, 3, 0, 1, 2, 3, 0],
+                    backgroundColor: gradient2,
+                    borderColor: 'rgba(44, 129, 112, 0.8)',
+                    borderWidth: 1.5,
+                    fill: true,
+                    tension: 0.5,
+                    pointRadius: 1,
+                    pointBorderColor: 'rgba(44, 129, 112, 0.8)',
+                    pointBackgroundColor: 'rgba(44, 129, 112, 0.8)',
+                    pointRadius: 1,
+                }
+            ]
+        };
+
+        var options = {
+            maintainAspectRatio: false,
+            scales: {
+                x: {
+                    ticks: {
+                        stepSize: 1,
+                        color: 'black'
+                    },
+                    grid: {
+                        color: 'rgba(255, 255, 255, 0.8)'
+                    }
+                },
+                y: {
+                    ticks: {
+                        stepSize: 5,
+                        color: 'black'
+                    },
+                    min: 0,
+                    max: 110,
+                    display: true,
+                    grid: {
+                        color: 'rgba(0, 0, 0, 0.2)'
+                    }
+                }
+            },
+            plugins: {
+                legend: {
+                    display: false
+                },
+                datalabels: {
+                    anchor: 'end',
+                    align: 'end',
+                    color: 'white'
+                },
+            },
+        };
+
+        var chart = new Chart(canvas, {
+            type: 'line',
+            data: data,
+            options: options
+        });
+
+        // Grafico na div 4
+        var canvas = document.getElementById('graficotabela1');
+        var ctx = canvas.getContext('2d');
+        var gradient1 = ctx.createLinearGradient(0, 0, 0, 400);
+        gradient1.addColorStop(0, 'rgba(0, 32, 96, 0.8)');
+        gradient1.addColorStop(1, 'rgba(182, 239, 222, 0.1)');
+
+        const data1 = {
+            labels: ["1/jan"],
+            datasets: [{
+                    label: 'Aderência',
+                    data: [88, 100],
+                    backgroundColor: gradient1,
+                    borderColor: 'rgba(0, 32, 96))',
+                    borderWidth: 1,
+                    borderSkipped: false,
+                    barPercentage: 0.5,
+                    categoryPercentage: 0.5,
+                    fill: true,
+                },
+                {
+                    label: 'Aderência',
+                    data: [88, 100],
+                    backgroundColor: gradient1,
+                    borderColor: 'rgba(0, 32, 96))',
+                    borderWidth: 1,
+                    borderSkipped: false,
+                    barPercentage: 0.5,
+                    categoryPercentage: 0.5,
+                    fill: true,
+                },
+                {
+                    label: 'Aderência',
+                    data: [88, 100],
+                    backgroundColor: gradient1,
+                    borderColor: 'rgba(0, 32, 96))',
+                    borderWidth: 1,
+                    borderSkipped: false,
+                    barPercentage: 0.5,
+                    categoryPercentage: 0.5,
+                    fill: true,
+                },
+                {
+                    label: 'Aderência',
+                    data: [88, 100],
+                    backgroundColor: gradient1,
+                    borderColor: 'rgba(0, 32, 96))',
+                    borderWidth: 1,
+                    borderSkipped: false,
+                    barPercentage: 0.5,
+                    categoryPercentage: 0.5,
+                    fill: true,
+                },
+            ]
+        };
+
+        const horizontalBarTrack = {
+            id: 'horizontalBarTrack',
+            beforeDatasetsDraw(chart, args, plugins) {
+                const {
+                    ctx,
+                    data,
+                    chartArea: {
+                        top,
+                        bottom,
+                        left,
+                        right,
+                        width,
+                        height
+                    },
+                    scales: {
+                        x,
+                        y
+                    }
+                } = chart;
+
+                const barThickness = chart.getDatasetMeta(0).data[0].height;
+
+                ctx.save();
+
+                ctx.fillStyle = plugins.barTrackColor;
+
+                data.datasets[0].data.forEach((datapoint, index) => {
+                    ctx.fillRect(left, y.getPixelForValue(index) - (barThickness / 2), width, barThickness);
+                });
+            }
+        };
+
+        var options = {
+            indexAxis: 'y',
+            scales: {
+                x: {
+                    grid: {
+                        display: false,
+                        drawBorder: false
+                    },
+                    ticks: {
+                        display: false
+                    }
+                },
+                y: {
+                    ticks: {
+                        stepSize: 5,
+                        color: 'black'
+                    },
+                    display: false,
+                    grid: {
+                        color: 'rgba(0, 0, 0, 0.2)'
+                    }
+                }
+            },
+            plugins: {
+                legend: {
+                    display: false
+                },
+                horizontalBarTrack: {
+                    barTrackColor: 'rgba(0, 0, 0, 0.1)'
+                }
+            },
+        };
+
+        var chart = new Chart(canvas, {
+            type: 'bar',
+            data: data1,
+            options: options,
+            plugins: [horizontalBarTrack]
+        });
+
+        var canvas = document.getElementById('graficotabela2');
+
+        const data5 = {
+            labels: ["1/jan"],
+            datasets: [{
+                label: 'Aderência',
+                data: [88, 100],
+                backgroundColor: gradient1,
+                borderColor: 'rgba(0, 32, 96))',
+                borderWidth: 1,
+                borderSkipped: false,
+                barPercentage: 0.5,
+                categoryPercentage: 0.5,
+                fill: true,
+            }]
+        };
+
+        var chart = new Chart(canvas, {
+            type: 'bar',
+            data: data5,
+            options: options,
+            plugins: [horizontalBarTrack]
+        });
+
+    </script>
+
+</body>
+
+</html>
